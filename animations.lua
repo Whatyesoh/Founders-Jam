@@ -39,6 +39,13 @@ function drawAnimation(object)
         if object.dir == -1 then
             xPos = xPos + object.sx
         end
+        if object.animation == 6 then
+            xScale = xScale * 2
+            xPos = xPos - object.sx/2
+            if object.dir == -1 then
+                xPos = xPos + object.sx
+            end
+        end
         love.graphics.draw(frameToDraw,xPos,object.y,0,xScale,yScale)
     end
 end

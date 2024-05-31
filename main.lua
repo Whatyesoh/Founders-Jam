@@ -25,7 +25,7 @@ function love.load()
 
     --Initialize animations
     animations = {}
-    unloadedAnimations = {{"Test",.1},{"notePlayed",.1},{"countDown",1.5},{"kingFistShake",1.2},{"jesterIdle",1}}
+    unloadedAnimations = {{"Test",.1},{"notePlayed",.1},{"countDown",1.5},{"kingFistShake",1.2},{"jesterIdle",1},{"jesterKick",.4},{"jesterJuggle",.15}}
 
     for j,k in ipairs(unloadedAnimations) do
         generateAnimation("Textures/Animations/"..k[1].."/",k[2])
@@ -33,11 +33,12 @@ function love.load()
 
     --Initialize sprites
     sprites = {}
-    unloadedSprites = {"Background","Jester","noteTile","background2","ThoughtBubble","kingBar","KingSeated"}
+    unloadedSprites = {"Background","Jester","noteTile","background2","ThoughtBubble","kingBar","KingSeated","ball"}
     generateSprites()
 
     --Initialize objects
     objects = {}
+    balls = {}
 
     player = {}
     createObject(player,0,0,0,150,400,100,250,2,1)
@@ -71,11 +72,11 @@ function love.load()
     hardRhythms = {}
 
     rhythms = {
-        {.5,.5,.2},
-        {.2,.2,.4,.2},
-        {.15,.15,.15,.15},
-        {.15,.2,.2,.5},
-        {.2,.3,.4,.5}
+        {.5,.5,.2,6},
+        {.2,.2,.4,.2,6},
+        {.15,.15,.15,.15,7},
+        {.15,.2,.2,.5,7},
+        {.2,.3,.4,.5,6}
     }
     playedRhythm = 0
     rhythmStart = 0
@@ -103,6 +104,15 @@ function love.keypressed(key)
             playerHit = 1
         end
     end
+    if key == "left" then
+        player.animation = 7
+        player.startTime = time
+        player.frame = 1
+        table.insert(balls,{player.x + player.sx / 2 + player.dir * player.sx/2.5-15,player.y+50,600,player.dir})
+    end
+    if key == "right" then
+        player.dir = player.dir * -1
+    end
     if key == "1" then
         if playedRhythm == 0 then
             allowCounting = 1
@@ -119,6 +129,15 @@ end
 
 function love.update(dt)
     time = time + dt
+
+    for i,v in ipairs(balls) do
+        v[2] = v[2] - v[3] * dt
+        v[3] = v[3] - 1500 *dt
+        v[1] = v[1] - 120 * v[4] * dt
+        if v[2] > player.y + 50 then
+            table.remove(balls,i)
+        end
+    end
 
     playRhythm()
 
@@ -148,6 +167,9 @@ function love.draw()
     love.graphics.draw(sprites[5],200,0,0,1,1)
     for i,object in ipairs(objects) do
         drawAnimation(object)
+    end
+    for i,v in ipairs(balls) do
+        love.graphics.draw(sprites[8],v[1],v[2],0,.15,.15)
     end
     love.graphics.setColor(1,0,0,1)
     love.graphics.rectangle("fill",kingBar.x+30,kingBar.y+57,(kingBar.sx-47)*kingHappiness/100,kingBar.sy/4)

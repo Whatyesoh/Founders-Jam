@@ -41,7 +41,7 @@ function playRhythm ()
                 love.audio.play(note)
                 rhythmStart = rhythmStart + rhythms[playedRhythm][rhythmIndex]
                 rhythmIndex = rhythmIndex + 1
-                if rhythmIndex > #rhythms[playedRhythm] then
+                if rhythmIndex > #rhythms[playedRhythm] - 1 then
                     playerInput = 1
                     hits = 0
                     hitScore = 0
@@ -74,8 +74,14 @@ function playRhythm ()
                     player.y = player.y - sizeIncrease/2
                     sizeTime = time
                     playerIndex = playerIndex + 1
+                    player.animation = rhythms[playerRhythm][#rhythms[playerRhythm]]
+                    player.startTime = time
+                    player.frame = 1
+                    if player.animation == 7 then
+                        table.insert(balls,{player.x + player.sx / 2 + player.dir * player.sx/2.5-15,player.y+50,600,player.dir})
+                    end
                 end
-                if playerIndex > #rhythms[playerRhythm] or hitSuccess == 0 then
+                if playerIndex > #rhythms[playerRhythm] - 1 or hitSuccess == 0 then
                     playerInput = 0
                     startRhythm(math.random(#rhythms),1)
                 end
