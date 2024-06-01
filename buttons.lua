@@ -17,7 +17,7 @@ function drawButtons(buttons)
         love.graphics.rectangle("fill",v[1],v[2],v[3],v[4])
         love.graphics.setColor(1,1,1,1)
         love.graphics.rectangle("line",v[1],v[2],v[3],v[4])
-        love.graphics.print(v[5],(v[1] + v[1] + v[3])/2 - text:getWidth()/2,(v[2] + v[2] + v[4])/2 - text:getHeight()/2) 
+        love.graphics.draw(text,(v[1] + v[1] +v[3])/2-text:getWidth()/2,(v[2] + v[2] + v[4])/2 - text:getHeight()/2) 
     end
 end
 

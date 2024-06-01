@@ -15,7 +15,16 @@ function setup()
 
     --Initialize animations
     animations = {}
-    unloadedAnimations = {{"Test",.1},{"notePlayed",.1},{"countDown",1.5},{"kingFistShake",1.2},{"jesterIdle",1},{"jesterKick",.4},{"jesterJuggle",.15}}
+    unloadedAnimations = {
+        {"Test",.1},
+        {"notePlayed",.1},
+        {"countDown",1.5},
+        {"kingFistShake",1.2},
+        {"jesterIdle",1},
+        {"jesterKick",.3},
+        {"jesterJuggle",.15},
+        {"jesterHorn",.5}
+    }
 
     for j,k in ipairs(unloadedAnimations) do
         generateAnimation("Textures/Animations/"..k[1].."/",k[2])
@@ -23,18 +32,19 @@ function setup()
 
     --Initialize sprites
     sprites = {}
-    unloadedSprites = {"Background","Jester","noteTile","background2","ThoughtBubble","kingBar","KingSeated","ball"}
+    unloadedSprites = {"Background","Jester","noteTile","background2","ThoughtBubble","kingBar","KingSeated","ball","note1"}
     generateSprites()
 
     --Initialize objects
     objects = {}
     balls = {}
+    notes = {}
 
     player = {}
     createObject(player,0,0,0,150,400,100,250,2,1)
 
     noteTile = {}
-    createObject(noteTile,0,0,0,500,150,50,50,3,1)
+    createObject(noteTile,0,0,0,500,150,50,50,2,1)
 
     countDown = {}
     createObject(countDown,0,0,0,300,150,400,440,0,1)
@@ -63,10 +73,11 @@ function setup()
 
     rhythms = {
         {.5,.5,.2,6},
-        {.2,.2,.4,.2,6},
+        {.2,.2,.4,.2,8},
         {.15,.15,.15,.15,7},
         {.15,.2,.2,.5,7},
-        {.2,.3,.4,.5,6}
+        {.2,.3,.4,.5,6},
+        {.4,.4,.2,.4,8}
     }
     playedRhythm = 0
     rhythmStart = 0

@@ -18,6 +18,9 @@ function gameDraw()
     for i,v in ipairs(balls) do
         love.graphics.draw(sprites[8],v[1],v[2],0,.15,.15)
     end
+    for i,v in ipairs(notes) do
+        love.graphics.draw(sprites[9],v[1],v[2],0,.15,.15)
+    end
     love.graphics.setColor(1,0,0,1)
     love.graphics.rectangle("fill",kingBar.x+30,kingBar.y+57,(kingBar.sx-47)*kingHappiness/100,kingBar.sy/4)
     love.graphics.setColor(1,1,1,1)
@@ -27,14 +30,14 @@ function gameDraw()
     love.graphics.setShader(edgeDetect)
     love.graphics.draw(predraw)
 
-    love.graphics.setShader(crt)
+    love.graphics.setShader()
     love.graphics.setCanvas()
     love.graphics.draw(predraw2)
     love.graphics.setShader()
 end
 
 function pauseDraw()
-    title = love.graphics.newText(font,"Pused")
+    title = love.graphics.newText(font,"Paused")
     love.graphics.draw(title,width/2 - title:getWidth()/2,200)
     drawButtons(pauseButtons)
 end

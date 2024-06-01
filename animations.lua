@@ -16,8 +16,14 @@ function playAnimation(object)
         if time - object.startTime >= (animationLength / animationFrames) * object.frame then
             object.frame = object.frame + 1
             if (object.frame > animationFrames) then
+                oldAnimation = object.animation
                 object.animation = 0
                 object.frame = 1
+                if oldAnimation == 4 then
+                    if kingHappiness == 0 then
+                        scene = 4
+                    end
+                end
             end
         end
     end

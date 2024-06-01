@@ -9,10 +9,10 @@ function gameKeyPress (key)
         end
     end
     if key == "left" then
-        player.animation = 7
+        player.animation = 8
         player.startTime = time
         player.frame = 1
-        table.insert(balls,{player.x + player.sx / 2 + player.dir * player.sx/2.5-15,player.y+50,600,player.dir})
+        table.insert(notes,{player.x + player.sx / 2 - player.dir * player.sx/2.5-15,player.y,300,player.dir})
     end
     if key == "right" then
         player.dir = player.dir * -1

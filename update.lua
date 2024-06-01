@@ -20,6 +20,13 @@ function gameUpdate(dt)
         end
     end
 
+    for i,v in ipairs(notes) do
+        v[2] = v[2] - v[3] * dt
+        if v[2] < 0 then
+            table.remove(notes,i)
+        end
+    end
+
     playRhythm()
 
     if player.animation == 0 then
@@ -27,6 +34,13 @@ function gameUpdate(dt)
         player.animation = 5
         player.frame = 1
     end
+
+    if noteTile.animation == 0 then
+        noteTile.startTime = time
+        noteTile.animation = 5
+        noteTile.frame = 1
+    end
+
 
     for i,object in ipairs(objects) do
         playAnimation(object)
