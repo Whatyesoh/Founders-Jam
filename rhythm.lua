@@ -66,13 +66,15 @@ function playRhythm ()
                     rhythmStart = time
                     love.audio.stop(note)
                     love.audio.play(note)
+                    --[[
                     sizeBoost = 1
-                    player.dir = player.dir * -1
                     player.sx = player.sx + sizeIncrease
                     player.sy = player.sy + sizeIncrease
                     player.x = player.x - sizeIncrease/2
                     player.y = player.y - sizeIncrease/2
                     sizeTime = time
+                    ]]
+                    player.dir = player.dir * -1
                     playerIndex = playerIndex + 1
                     player.animation = rhythms[playerRhythm][#rhythms[playerRhythm]]
                     player.startTime = time
