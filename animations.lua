@@ -21,6 +21,13 @@ function playAnimation(object)
                 object.frame = 1
                 if oldAnimation == 4 then
                     if kingHappiness == 0 then
+                        win = 0
+                        scene = 4
+                    end
+                end
+                if oldAnimation == 9 then
+                    if kingHappiness == 100 then
+                        win = 1
                         scene = 4
                     end
                 end

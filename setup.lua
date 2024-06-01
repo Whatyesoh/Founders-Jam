@@ -23,7 +23,8 @@ function setup()
         {"jesterIdle",1},
         {"jesterKick",.3},
         {"jesterJuggle",.15},
-        {"jesterHorn",.5}
+        {"jesterHorn",.5},
+        {"kingClap",1.2}
     }
 
     for j,k in ipairs(unloadedAnimations) do

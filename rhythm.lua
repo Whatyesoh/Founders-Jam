@@ -101,6 +101,13 @@ function playRhythm ()
 
                 end
                 if playerIndex > #rhythms[playerRhythm] - 1 or hitSuccess == 0 then
+
+                    if playerIndex > #rhythms[playerRhythm] - 1 then
+                        king.animation = 9
+                        king.frame = 1
+                        king.startTime = time
+                    end
+
                     playerInput = 0
                     startRhythm(math.random(#rhythms),1.3)
                 end
