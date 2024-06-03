@@ -26,7 +26,32 @@ function buttonPress(buttonList)
         if v[7] == 1 then
             if v[6] == 1 then
                 scene = 2
-                startRhythm(math.random(#rhythms),allowCounting * 1.6)
+
+                playedRhythm = 0
+                rhythmStart = 0
+                rhythmIndex = 1
+                firstNote = 0
+                counting = 0
+                allowCounting = 1
+            
+                playerInput = 0
+                playerRhythm = 0
+                playerIndex = 1
+                playerHit = 0
+            
+                kingHappiness = 50
+
+                player.animation = 0
+                king.animation = 0
+                noteTile.animation = 0
+
+                usedRhythms = {}
+                usedMoves = {}
+
+                addRhythms(easyRhythms,easyMoves)
+                addRhythms(hardRhythms,hardMoves)
+                
+                startRhythm(math.random(#usedRhythms),allowCounting * 1.6)
             end
             if v[6] == 2 then
                 love.event.quit()

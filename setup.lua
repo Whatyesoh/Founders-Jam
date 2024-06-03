@@ -12,6 +12,8 @@ function setup()
     scene = 1
 
     font = love.graphics.newFont(14)
+    bigFont = love.graphics.newFont(20)
+    hugeFont = love.graphics.newFont(40)
 
     --Initialize animations
     animations = {}
@@ -68,43 +70,48 @@ function setup()
     predraw2 = love.graphics.newCanvas()
 
     --Initialize rhythms
-    easyRhythms = {}
-    mediumRhythms = {}
-    hardRhythms = {}
 
-    rhythms = {
-        {.5,.5,.2,6},
-        {.2,.2,.4,.2,8},
-        {.15,.15,.15,.15,7},
-        {.15,.2,.2,.5,7},
-        {.2,.3,.4,.5,6},
-        {.4,.4,.2,.4,8}
+    easyRhythms = {
+        {.5,.5,.2},
+        {.5,.5,.2}
     }
-    playedRhythm = 0
-    rhythmStart = 0
-    rhythmIndex = 1
-    firstNote = 0
-    counting = 0
-    allowCounting = 1
 
-    playerInput = 0
-    playerRhythm = 0
-    playerIndex = 1
-    playerHit = 0
-    sizeBoost = 0
-    sizeIncrease = 60
-    sizeTime = 0
+    easyMoves = {
+        {6,6,6,6},
+        {7,7,7,7}
+    }
 
-    kingHappiness = 50
+    hardRhythms = {
+        {.5,.5,.2},
+        {.2,.2,.4,.2},
+        {.15,.15,.15,.15},
+        {.15,.2,.2,.5},
+        {.2,.3,.4,.5},
+        {.4,.4,.2,.4}
+    }
+
+    hardMoves = {
+        {6,6,6,6},
+        {8,8,8,7,7},
+        {7,8,6,7,6},
+        {7,7,7,7,7},
+        {8,8,8,8,8},
+        {6,6,6,6,6}
+    }
+
 
     --Initialize buttons
 
     menuButtons = {}
     pauseButtons = {}
+    endButtons = {}
 
     createButton(menuButtons,width/2-40,400,80,20,"Start",1)
     createButton(menuButtons,width/2-40,450,80,20,"Quit",2)
 
     createButton(pauseButtons,width/2-40,400,80,20,"Resume",1)
     createButton(pauseButtons,width/2-40,450,80,20,"Menu",3)
+
+    createButton(endButtons,width/2-40,400,80,20,"Menu",3)
+    createButton(endButtons,width/2-40,450,80,20,"Quit",2)
 end

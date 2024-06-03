@@ -27,7 +27,7 @@ function gameUpdate(dt)
         end
     end
 
-    playRhythm()
+    playRhythm(usedRhythms,usedMoves)
 
     if player.animation == 0 then
         player.startTime = time
@@ -54,5 +54,7 @@ function pauseUpdate(dt)
 end
 
 function endScreenUpdate(dt)
-
+    for i,v in ipairs(endButtons) do
+        checkButton(love.mouse.getX(),love.mouse.getY(),v)
+    end
 end

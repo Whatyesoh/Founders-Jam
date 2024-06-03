@@ -15,21 +15,14 @@ function startRhythm (rhythm,wait)
     end
 end
 
-function playRhythm ()
-    if sizeBoost == 1 and time > sizeTime + .05 then
-        sizeBoost = 0
-        player.sx = player.sx - sizeIncrease
-        player.sy = player.sy - sizeIncrease
-        player.x = player.x + sizeIncrease/2
-        player.y = player.y + sizeIncrease/2
-    end
+function playRhythm (rhythms, moves)
     if counting == 0 then
         if playedRhythm > 0 then
             if firstNote == 0 then
                 firstNote = 1
 
                 noteTile.dir = noteTile.dir * -1
-                noteTile.animation = rhythms[playedRhythm][#rhythms[playedRhythm]]
+                noteTile.animation = moves[playedRhythm][1]
                 noteTile.startTime = time
                 noteTile.frame = 1
                 if noteTile.animation == 7 then
@@ -45,7 +38,7 @@ function playRhythm ()
             if time - rhythmStart >= rhythms[playedRhythm][rhythmIndex] then
 
                 noteTile.dir = noteTile.dir * -1
-                noteTile.animation = rhythms[playedRhythm][#rhythms[playedRhythm]]
+                noteTile.animation = moves[playedRhythm][rhythmIndex+1]
                 noteTile.startTime = time
                 noteTile.frame = 1
                 if noteTile.animation == 7 then
@@ -59,7 +52,7 @@ function playRhythm ()
                 love.audio.play(note)
                 rhythmStart = rhythmStart + rhythms[playedRhythm][rhythmIndex]
                 rhythmIndex = rhythmIndex + 1
-                if rhythmIndex > #rhythms[playedRhythm] - 1 then
+                if rhythmIndex > #rhythms[playedRhythm] then
                     playerInput = 1
                     hits = 0
                     hitScore = 0
@@ -76,8 +69,8 @@ function playRhythm ()
                 timing = 1
             end
             hitSuccess = 0
-            checkRhythm()
-            if playerHit == 1 then
+            checkRhythm(rhythms,moves)
+            if playerHit > 0 then
                 playerHit = 0
                 if hitSuccess == 1 then
 
@@ -89,27 +82,27 @@ function playRhythm ()
                     playerIndex = playerIndex + 1
 
                     player.dir = player.dir * -1
-                    player.animation = rhythms[playerRhythm][#rhythms[playerRhythm]]
+                    player.animation = moves[playerRhythm][playerIndex]
                     player.startTime = time
                     player.frame = 1
                     if player.animation == 7 then
                         table.insert(balls,{player.x + player.sx / 2 + player.dir * player.sx/2.5-15,player.y+50,600,player.dir})
                     end
                     if player.animation == 8 then
-                        table.insert(notes,{player.x + player.sx / 2 - player.dir * player.sx/2.5-15,player.y,300,player.dir})
+                        table.insert(notes,{player.x + player.sx / 2 - player.dir * player.sx/2.5-15,player.y+30,300,player.dir})
                     end
 
                 end
-                if playerIndex > #rhythms[playerRhythm] - 1 or hitSuccess == 0 then
+                if playerIndex > #rhythms[playerRhythm] or hitSuccess == 0 then
 
-                    if playerIndex > #rhythms[playerRhythm] - 1 then
+                    if playerIndex > #rhythms[playerRhythm] then
                         king.animation = 9
                         king.frame = 1
                         king.startTime = time
                     end
 
                     playerInput = 0
-                    startRhythm(math.random(#rhythms),1.3)
+                    startRhythm(math.random(#usedRhythms),1.3)
                 end
             end
         end
@@ -121,7 +114,7 @@ function playRhythm ()
 end
 
 
-function checkRhythm()
+function checkRhythm(rhythms,moves)
     if playerIndex == 0 then
         hitTime = rhythmStart + .5
     else
@@ -129,9 +122,10 @@ function checkRhythm()
     end
     hitScore = math.abs(time - (hitTime))
     if time > hitTime + timing then
-        playerHit = 1
+        playerHit = moves[playerRhythm][playerIndex+1]
     end
-    if time > hitTime - timing and time < hitTime + timing and playerHit == 1 then
+    miss = 0
+    if time > hitTime - timing and time < hitTime + timing and playerHit == moves[playerRhythm][playerIndex+1] then
         hitSuccess = 1
         hits = hits + 1
         if hitScore < .03 then
@@ -144,7 +138,10 @@ function checkRhythm()
         if kingHappiness > 100 then
             kingHappiness = 100
         end
-    elseif playerHit == 1 then
+    else
+        miss = 1
+    end
+    if (miss == 1 and playerHit == moves[playerRhythm][playerIndex+1]) or (playerHit > 0 and playerHit ~= moves[playerRhythm][playerIndex+1]) then
         hitSuccess = 0
         playerInput = 0
         king.animation = 4
@@ -158,5 +155,14 @@ function checkRhythm()
         if kingHappiness < 0 then
             kingHappiness = 0
         end
+    end
+end
+
+function addRhythms(rhythms,moves) 
+    for j,k in ipairs(rhythms) do
+        table.insert(usedRhythms,k)
+    end
+    for j,k in ipairs(moves) do
+        table.insert(usedMoves,k)
     end
 end

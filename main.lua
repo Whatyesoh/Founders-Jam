@@ -38,6 +38,9 @@ function love.mousepressed(x,y,button)
     if scene == 3 then
         pauseMousePressed(x,y,button)
     end
+    if scene == 4 then
+        endScreenMousePressed(x,y,button)
+    end
 end
 
 function love.mousemoved(x,y)
@@ -46,6 +49,9 @@ function love.mousemoved(x,y)
     end
     if scene == 3 then
         pauseMouseMoved(x,y)
+    end
+    if scene == 4 then
+        endScreenMouseMoved(x,y)
     end
 end
 
@@ -59,6 +65,9 @@ function love.update(dt)
     if scene == 3 then
         pauseUpdate(dt)
     end
+    if scene == 4 then
+        endScreenUpdate(dt)
+    end
 end
 
 function love.draw()
@@ -70,5 +79,8 @@ function love.draw()
     end
     if scene == 3 then
         pauseDraw()
+    end
+    if scene == 4 then
+        endScreenDraw()
     end
 end

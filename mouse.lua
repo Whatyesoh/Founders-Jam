@@ -31,5 +31,7 @@ function pauseMousePressed(x,y,button)
 end
 
 function endScreenMousePressed(x,y,button)
-
+    if button == 1 then
+        buttonPress(endButtons)
+    end
 end

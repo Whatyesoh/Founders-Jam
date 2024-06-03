@@ -9,19 +9,19 @@ function gameKeyPress (key)
         end
     end
     if key == "left" then
-        king.animation = 9
-        king.startTime = time
-        king.frame = 1
-        --table.insert(notes,{player.x + player.sx / 2 - player.dir * player.sx/2.5-15,player.y,300,player.dir})
+        if playerInput == 1 then
+            playerHit = 6
+        end
     end
     if key == "right" then
-        player.dir = player.dir * -1
-    end
-    if key == "1" then
-        if playedRhythm == 0 then
-            allowCounting = 1
+        if playerInput == 1 then
+            playerHit = 8
         end
-        startRhythm(math.random(#rhythms),allowCounting * 1.6)
+    end
+    if key == "up" then
+        if playerInput == 1 then
+            playerHit = 7
+        end
     end
     if key == "escape" then
         scene = 3
